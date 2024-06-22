@@ -23,8 +23,7 @@ jobs:
       - name: Set up Google Cloud credentials
         env:
           GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
-        run: |
-          echo "${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}" | base64 --decode > $HOME/gcloud.json
+        run: echo "${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}" > $HOME/gcloud.json
 
       - name: Authenticate with Google Cloud
         run: gcloud auth activate-service-account --key-file=$HOME/gcloud.json
@@ -32,7 +31,7 @@ jobs:
       - name: Authenticate with Firebase
         env:
           GOOGLE_APPLICATION_CREDENTIALS: $HOME/gcloud.json
-        run: firebase login:ci --token $(gcloud auth print-access-token)
+        run: gcloud auth print-access-token | firebase login:ci --token -
 
       - name: Install dependencies
         run: npm install
