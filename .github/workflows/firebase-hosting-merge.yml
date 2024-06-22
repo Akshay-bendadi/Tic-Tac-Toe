@@ -3,7 +3,6 @@ on:
   push:
     branches:
       - master # Change 'main' to 'master'
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -23,15 +22,15 @@ jobs:
       - name: Set up Google Cloud credentials
         env:
           GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
-        run: echo "${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}" > $HOME/gcloud.json
+        run: |
+          echo "${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}" > $HOME/gcloud.json
 
       - name: Authenticate with Google Cloud
         run: gcloud auth activate-service-account --key-file=$HOME/gcloud.json
 
       - name: Authenticate with Firebase
-        env:
-          GOOGLE_APPLICATION_CREDENTIALS: $HOME/gcloud.json
-        run: gcloud auth print-access-token | firebase login:ci --token -
+        run: |
+          gcloud auth print-access-token | firebase login:ci --token -
 
       - name: Install dependencies
         run: npm install
@@ -40,6 +39,6 @@ jobs:
         run: npm run build --if-present
 
       - name: Deploy to Firebase Hosting
+        run: firebase deploy --only hosting
         env:
           GOOGLE_APPLICATION_CREDENTIALS: $HOME/gcloud.json
-        run: firebase deploy --only hosting
