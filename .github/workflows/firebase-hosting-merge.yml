@@ -15,7 +15,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: "14" # Ensure this matches the version mentioned in your error
+          node-version: "20" # Ensure this matches the version mentioned in your error
 
       - name: Install Firebase CLI
         run: npm install -g firebase-tools
