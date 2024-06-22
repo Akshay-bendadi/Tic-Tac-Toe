@@ -28,6 +28,6 @@ jobs:
 
       - name: Deploy to Firebase Hosting
         run: |
-          firebase deploy --token "$FIREBASE_TOKEN" --project "Tic-Tac-Toe"
+          firebase deploy --token "$FIREBASE_SERVICE_ACCOUNT_TIC_TAC_TOE_32B02" --project "Tic-Tac-Toe"
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_TIC_TAC_TOE_32B02 }}
