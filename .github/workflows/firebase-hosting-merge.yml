@@ -17,6 +17,9 @@ jobs:
         with:
           node-version: "18.x" # or '20.x'
 
+      - name: Install Firebase CLI
+        run: npm install -g firebase-tools
+
       - name: Set up Google Cloud credentials
         env:
           GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
@@ -33,5 +36,3 @@ jobs:
 
       - name: Deploy to Firebase Hosting
         run: firebase deploy --only hosting
-        env:
-          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
