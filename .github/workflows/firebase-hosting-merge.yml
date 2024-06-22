@@ -2,7 +2,7 @@ name: Deploy to Firebase Hosting on merge
 on:
   push:
     branches:
-      - main
+      - master
 
 jobs:
   build_and_deploy:
@@ -15,13 +15,13 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '14'  # Ensure this matches the version mentioned in your error
+          node-version: "14" # Ensure this matches the version mentioned in your error
 
       - name: Install dependencies
         run: npm install
 
       - name: Build project
-        run: npm run build  # Adjust this command as per your project setup 
+        run: npm run build # Adjust this command as per your project setup
 
       - name: Deploy to Firebase Hosting
         run: |
